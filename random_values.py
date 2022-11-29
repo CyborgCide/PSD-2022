@@ -34,6 +34,7 @@ class Randomizer:
         list of int
         """
 
+        # Calls the preconditions method and passes the correct parameters
         self._preconditions(amount, min_range, max_range)
 
         list_of_random = []
@@ -41,6 +42,7 @@ class Randomizer:
             value = random.randint(min_range, max_range)
             list_of_random.append(value)
 
+        # Calls the postconditions method and passes the correct parameters
         self._postconditions(list_of_random, amount, min_range, max_range)
 
         return list_of_random
