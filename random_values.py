@@ -14,7 +14,17 @@ class Randomizer:
         elif amount <= 0:
             raise ValueError("Amount variable must be greater than 0")
 
-    def random_nums(self, amount: int, minRange: int, maxRange: int):
+    def _postconditions(self, list_of_random, amount, min_range, max_range):
+        # Postconditions:
+        # First checks that the correct amount of variables have been appended
+        if len(list_of_random) != amount:
+            raise Exception("List recieved incorrect amount of values")
+        # Second checks that the appended values are within the given range
+        for rand_int in list_of_random:
+            if rand_int < min_range or rand_int > max_range:
+                raise Exception("Random number is outside of the given range")
+
+    def random_nums(self, amount: int, min_range: int, max_range: int):
         """
         Takes the parameters amount, minRange, maxRange.
         Then returns values equal to the amount and in the range of
@@ -24,26 +34,19 @@ class Randomizer:
         list of int
         """
 
-        self._preconditions(amount, minRange, maxRange)
+        self._preconditions(amount, min_range, max_range)
 
         list_of_random = []
         for i in range(amount):
-            value = random.randint(minRange, maxRange)
+            value = random.randint(min_range, max_range)
             list_of_random.append(value)
 
-        # Postconditions:
-        # First checks that the correct amount of variables have been appended
-        if len(list_of_random) != amount:
-            raise Exception("Error when appending")
-        # Second checks that the appended values are within the given range
-        for rand_int in list_of_random:
-            if rand_int < minRange or rand_int > maxRange:
-                raise Exception("Random number is outside of the given range")
+        self._postconditions(list_of_random, amount, min_range, max_range)
 
         return list_of_random
 
 
 # Example test code
 rando = Randomizer()
-print(rando.random_nums(0, 4, 30))
+print(rando.random_nums(4, 4, 30))
 print(rando.random_nums(2, 4, 30))
